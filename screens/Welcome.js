@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useContext } from "react";
+import { StatusBar } from "expo-status-bar";
 
 import {
   Avatar,
@@ -12,28 +12,31 @@ import {
   WelcomeContainer,
   ButtonText,
   Line,
-} from './../components/styles';
+} from "./../components/styles";
 
 // Async storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // credentials context
-import { CredentialsContext } from './../components/CredentialsContext';
+import { CredentialsContext } from "./../components/CredentialsContext";
 
 const Welcome = () => {
   // credentials context
-  const { storedCredentials, setStoredCredentials } = useContext(CredentialsContext);
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
 
   const { name, email, photoUrl } = storedCredentials;
+  console.log("credenciales", storedCredentials);
+  console.log("credenciales nuevas" + storedCredentials[0]);
 
   const AvatarImg = photoUrl
     ? {
         uri: photoUrl,
       }
-    : require('./../assets/img/expo-bg1.png');
+    : require("./../assets/img/expo-bg1.png");
 
   const clearLogin = () => {
-    AsyncStorage.removeItem('flowerCribCredentials')
+    AsyncStorage.removeItem("flowerCribCredentials")
       .then(() => {
         setStoredCredentials("");
       })
@@ -44,16 +47,25 @@ const Welcome = () => {
     <>
       <StatusBar style="light" />
       <InnerContainer>
-        <WelcomeImage resizeMode="cover" source={require('./../assets/img/expo-bg2.png')} />
+        <WelcomeImage
+          resizeMode="cover"
+          source={require("./../assets/img/expo-bg2.png")}
+        />
 
         <WelcomeContainer>
-          <PageTitle welcome={true}>Welcome! Buddy</PageTitle>
-          <SubTitle welcome={true}>{name || 'Olga Simpson'}</SubTitle>
-          <SubTitle welcome={true}>{email || 'olgasimp@gmail.com'}</SubTitle>
+          <PageTitle welcome={true}>Welcome! {name}</PageTitle>
+          <SubTitle welcome={true}>{name || "Olga Simpson"}</SubTitle>
+          <SubTitle welcome={true}>{email || "olgasimp@gmail.com"}</SubTitle>
+
+          <ExtraView>
+            <ExtraText>Don't have an account already? </ExtraText>
+            <TextLink onPress={() => navigation.navigate("Signup")}>
+              <TextLinkContent>Signup</TextLinkContent>
+            </TextLink>
+          </ExtraView>
 
           <StyledFormArea>
             <Avatar resizeMode="cover" source={AvatarImg} />
-
             <Line />
             <StyledButton onPress={clearLogin}>
               <ButtonText>Logout</ButtonText>
