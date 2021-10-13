@@ -28,20 +28,25 @@ function RootStack() {
     <CredentialsContext.Consumer>
       {({ storedCredentials }) => (
         <NavigationContainer style={{ backgroundColor: "red" }}>
-          <Stack.Navigator >
-            <Stack.Screen
-              name="LoginStack"
-              component={LoginStack}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Main"
-              component={MainStack}
-              options={{ headerShown: false }}
-            />
+          <Stack.Navigator>
+            {!storedCredentials ? (
+              <Stack.Screen
+                name="LoginStack"
+                component={LoginStack}
+                options={{ headerShown: false }}
+              />
+            ) : (
+              <>
+                <Stack.Screen
+                  name="Main"
+                  component={MainStack}
+                  options={{ headerShown: false }}
+                />
+              </>
+            )}
           </Stack.Navigator>
         </NavigationContainer>
-        )}
+      )}
     </CredentialsContext.Consumer>
   );
 }
@@ -78,7 +83,6 @@ function LoginStack() {
 function MainStack() {
   return (
     <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: true,
         headerTitleAlign: "center",
@@ -93,7 +97,6 @@ function MainStack() {
       }}
     >
       <Drawer.Screen name="Inicio" component={Inicio} />
-      
     </Drawer.Navigator>
   );
 }

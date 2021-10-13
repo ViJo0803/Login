@@ -73,6 +73,7 @@ const Login = ({ navigation }) => {
           persistLogin({ ...data[0] }, message, status);
         }
         setSubmitting(false);
+        navigation.navigate('Welcome')
       })
       .catch((error) => {
         setSubmitting(false);
@@ -85,6 +86,8 @@ const Login = ({ navigation }) => {
     setMessage(message);
     setMessageType(type);
   };
+
+  let estado
 
   const handleGoogleSignin = () => {
     setGoogleSubmitting(true);
@@ -104,6 +107,8 @@ const Login = ({ navigation }) => {
             "Google signin successful",
             "SUCCESS"
           );
+          estado = 'Listo'
+          //navigation.navigate("Inicio")
         } else {
           handleMessage("Google Signin was cancelled");
         }
