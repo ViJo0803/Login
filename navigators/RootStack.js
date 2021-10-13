@@ -7,14 +7,17 @@ const { darkLight, brand, primary, tertiary, secondary } = Colors;
 // React Navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 // screens
 import Login from "./../screens/Login";
 import Signup from "./../screens/Signup";
 import Welcome from "./../screens/Welcome";
+import Inicio from "./../screens/Inicio";
 import RegisterExntended from "../screens/RegisterExntended";
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 // credentials context
 import { CredentialsContext } from "./../components/CredentialsContext";
@@ -25,34 +28,12 @@ function RootStack() {
     <CredentialsContext.Consumer>
       {({ storedCredentials }) => (
         <NavigationContainer style={{ backgroundColor: "red" }}>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator >
             <Stack.Screen
-              name="Login"
+              name="LoginStack"
               component={LoginStack}
               options={{ headerShown: false }}
-            />,
-            {/* {storedCredentials ? (
-              ((
-                <Stack.Screen
-                  options={{
-                    headerTintColor: primary,
-                  }}
-                  name="Welcome"
-                  component={Welcome}
-                />
-              ),
-              (
-                <Stack.Screen
-                  name="RegisterExntended"
-                  component={RegisterExntended}
-                />
-              ))
-            ) : (
-              <>
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Signup" component={Signup} />
-              </>
-            )} */}
+            />
             <Stack.Screen
               name="Main"
               component={MainStack}
@@ -60,7 +41,7 @@ function RootStack() {
             />
           </Stack.Navigator>
         </NavigationContainer>
-      )}
+        )}
     </CredentialsContext.Consumer>
   );
 }
@@ -69,7 +50,6 @@ function RootStack() {
 function LoginStack() {
   return (
     <Stack.Navigator
-      initialRouteName="WelcomeRecharge"
       screenOptions={{
         headerShown: false,
       }}
@@ -98,7 +78,6 @@ function LoginStack() {
 function MainStack() {
   return (
     <Drawer.Navigator
-      initialRouteName="Inicio"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: true,
@@ -112,24 +91,9 @@ function MainStack() {
         // headerRight: () => <Ionicons name='ios-log-out' color='white' size={30} style={{ marginHorizontal: 15 }}></Ionicons>,
         // headerLeft: () => <Ionicons name='ios-menu' color='white' size={30} style={{ marginHorizontal: 15 }} onPress={() => props.navigation.openDrawer()}></Ionicons>,
       }}
-      lazy={true}
     >
-      <Drawer.Screen name="Inicio" />
-      <Drawer.Screen name="Estadisticas" />
-      <Drawer.Screen name="SendMonyScreen" />
-      <Drawer.Screen name="Ultimos Movimientos" options={{ title: "" }} />
-      <Drawer.Screen name="FAQ" />
-      <Drawer.Screen name="Recargar Dinero" />
-      <Drawer.Screen name="Mis Datos" />
-      {/* <Drawer.Screen name='Card' component={Card} /> */}
-
-      <Stack.Screen name="SelectContact" options={{ title: "" }} />
-      <Stack.Screen name="FinishSend" options={{ title: "" }} />
-      <Stack.Screen name="ContactCard" />
-      <Stack.Screen name="Contactos" />
-      <Stack.Screen name="Card" />
-      <Stack.Screen name="TransactionDetails" options={{ title: "" }} />
-      <Stack.Screen name="Cuentas" />
+      <Drawer.Screen name="Inicio" component={Inicio} />
+      
     </Drawer.Navigator>
   );
 }
