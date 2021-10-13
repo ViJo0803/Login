@@ -119,7 +119,7 @@ const Signup = ({ navigation }) => {
       <StyledContainer>
         <StatusBar style="dark" />
         <InnerContainer>
-          <PageTitle>Flower Crib</PageTitle>
+          <PageTitle>Register Extended</PageTitle>
           <SubTitle>Account Signup</SubTitle>
           {show && (
             <DateTimePicker
