@@ -12,6 +12,10 @@ import {
   WelcomeContainer,
   ButtonText,
   Line,
+  ExtraView,
+  ExtraText,
+  TextLink,
+  TextLinkContent,
 } from "./../components/styles";
 
 // Async storage
